@@ -1,8 +1,6 @@
-# Repos Status
+# Global Status Report
 
-The CI of every public StepIt repository that has one, on one page. Each badge is the last run of a GitHub Actions workflow on the default branch of its repository; click it to open the runs. A red badge is a workflow to look at.
-
-[`bin/generate.sh`](bin/generate.sh) writes this page from the GitHub API. Run it again after adding a repository to its list, or a workflow to a repository.
+The CI status of the StepIt projects. A red badge is a failing workflow: click it to see why.
 
 ## The Rig
 
