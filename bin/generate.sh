@@ -1,0 +1,73 @@
+#!/bin/bash -e
+
+# Writes README.md: one row per StepIt repository, with the badge of each of
+# its GitHub Actions workflows. The workflows come from the GitHub API, so a
+# new workflow appears the next time this runs; a new repository goes into
+# REPOSITORIES below. Only public repositories are shown: one that is not is
+# left out, even if listed. Needs gh, logged in.
+#
+#     ./bin/generate.sh && git commit -am "Update the badges" && git push
+
+OWNER=kineticsystem
+
+# The repositories, in groups: "group|name|role". The role is shown as is.
+REPOSITORIES=(
+    "The Rig|stepit-macro|The whole rig in one container: the modules, the behaviors and objectives, and StepIt UI."
+    "The Modules|stepit-motors|The robot: ROS 2 control of the stepper motors, and the firmware of the Teensy."
+    "The Modules|stepit-freezer|The Freezer board, which fires the cameras and the flashes, and its firmware."
+    "The Modules|stepit-camera|The ROS 2 driver of the camera."
+    "The Modules|stepit-commander|The action server that runs the objectives, behavior trees."
+    "The Modules|stepit-editor|The web editor of the objectives."
+    "The Libraries|framed-serial|Framed, CRC-checked messages over a serial port, for StepIt Motors and StepIt Freezer."
+    "The Libraries|serial|The serial port library, our fork, branch \`ros2\`."
+    "The Libraries|BehaviorTree.ROS2|BehaviorTree.CPP for ROS 2, our fork, branch \`humble\`, for the commander."
+    "Around the Rig|stepit-grader|A photo editor for the tones and colours of a picture."
+    "Around the Rig|stepit-stacker|Focus stacking of the rig's sessions."
+)
+
+cd "$(dirname "$(readlink -f "$0")")/.."
+
+# The cell of a repository: a badge per workflow that has run at least once,
+# or why there is none.
+function badges() {
+    local name=$1 workflows path workflow cell=""
+    workflows=$(gh api "repos/$OWNER/$name/actions/workflows" -q '.workflows[] | select(.state == "active") | "\(.name)|\(.path)"')
+    if [ -z "$workflows" ]; then
+        echo "No CI"
+        return
+    fi
+    while IFS='|' read -r workflow path; do
+        local file=${path##*/}
+        if [ "$(gh run list -R "$OWNER/$name" -w "$file" -L 1 --json databaseId -q length)" = 0 ]; then
+            continue
+        fi
+        local url="https://github.com/$OWNER/$name/actions/workflows/$file"
+        cell+="[![$workflow]($url/badge.svg)]($url) "
+    done <<< "$workflows"
+    cell=${cell% }
+    echo "${cell:-No CI: its workflows have never run}"
+}
+
+{
+    echo "# Repos Status"
+    echo
+    echo "The CI of every public StepIt repository on one page. Each badge is the last run of a GitHub Actions workflow on the default branch of its repository; click it to open the runs. A red badge is a workflow to look at."
+    echo
+    echo "[\`bin/generate.sh\`](bin/generate.sh) writes this page from the GitHub API. Run it again after adding a repository to its list, or a workflow to a repository."
+    group=""
+    for entry in "${REPOSITORIES[@]}"; do
+        IFS='|' read -r this name role <<< "$entry"
+        if [ "$(gh api "repos/$OWNER/$name" -q .visibility)" != public ]; then
+            continue
+        fi
+        if [ "$this" != "$group" ]; then
+            group=$this
+            echo
+            echo "## $group"
+            echo
+            echo "| Repository | Role | CI |"
+            echo "|---|---|---|"
+        fi
+        echo "| [$name](https://github.com/$OWNER/$name) | $role | $(badges "$name") |"
+    done
+} > README.md
