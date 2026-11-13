@@ -3,8 +3,9 @@
 # Writes README.md: one row per StepIt repository, with the badge of each of
 # its GitHub Actions workflows. The workflows come from the GitHub API, so a
 # new workflow appears the next time this runs; a new repository goes into
-# REPOSITORIES below. Only public repositories are shown: one that is not is
-# left out, even if listed. Needs gh, logged in.
+# REPOSITORIES below. Only public repositories with CI are shown: a listed
+# repository that is private, or has no workflow that has ever run, is left
+# out, and appears once it has. Needs gh, logged in.
 #
 #     ./bin/generate.sh && git commit -am "Update the badges" && git push
 
@@ -28,12 +29,11 @@ REPOSITORIES=(
 cd "$(dirname "$(readlink -f "$0")")/.."
 
 # The cell of a repository: a badge per workflow that has run at least once,
-# or why there is none.
+# or nothing.
 function badges() {
     local name=$1 workflows path workflow cell=""
     workflows=$(gh api "repos/$OWNER/$name/actions/workflows" -q '.workflows[] | select(.state == "active") | "\(.name)|\(.path)"')
     if [ -z "$workflows" ]; then
-        echo "No CI"
         return
     fi
     while IFS='|' read -r workflow path; do
@@ -45,19 +45,23 @@ function badges() {
         cell+="[![$workflow]($url/badge.svg)]($url) "
     done <<< "$workflows"
     cell=${cell% }
-    echo "${cell:-No CI: its workflows have never run}"
+    echo "$cell"
 }
 
 {
     echo "# Repos Status"
     echo
-    echo "The CI of every public StepIt repository on one page. Each badge is the last run of a GitHub Actions workflow on the default branch of its repository; click it to open the runs. A red badge is a workflow to look at."
+    echo "The CI of every public StepIt repository that has one, on one page. Each badge is the last run of a GitHub Actions workflow on the default branch of its repository; click it to open the runs. A red badge is a workflow to look at."
     echo
     echo "[\`bin/generate.sh\`](bin/generate.sh) writes this page from the GitHub API. Run it again after adding a repository to its list, or a workflow to a repository."
     group=""
     for entry in "${REPOSITORIES[@]}"; do
         IFS='|' read -r this name role <<< "$entry"
         if [ "$(gh api "repos/$OWNER/$name" -q .visibility)" != public ]; then
+            continue
+        fi
+        cell=$(badges "$name")
+        if [ -z "$cell" ]; then
             continue
         fi
         if [ "$this" != "$group" ]; then
@@ -68,6 +72,6 @@ function badges() {
             echo "| Repository | Role | CI |"
             echo "|---|---|---|"
         fi
-        echo "| [$name](https://github.com/$OWNER/$name) | $role | $(badges "$name") |"
+        echo "| [$name](https://github.com/$OWNER/$name) | $role | $cell |"
     done
 } > README.md
