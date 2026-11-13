@@ -29,3 +29,4 @@ The CI status of the StepIt projects. A red badge is a failing workflow: click i
 | Repository | Role | CI |
 |---|---|---|
 | [stepit-grader](https://github.com/kineticsystem/stepit-grader) | A photo editor for the tones and colours of a picture. | [![CI](https://github.com/kineticsystem/stepit-grader/actions/workflows/ci.yml/badge.svg)](https://github.com/kineticsystem/stepit-grader/actions/workflows/ci.yml) |
+| [raw-converter](https://github.com/kineticsystem/raw-converter) | Converts the camera's raw files, e.g. Canon CR2, to DNG for Lightroom. | [![Format](https://github.com/kineticsystem/raw-converter/actions/workflows/ci-format.yml/badge.svg)](https://github.com/kineticsystem/raw-converter/actions/workflows/ci-format.yml) [![CI](https://github.com/kineticsystem/raw-converter/actions/workflows/ci.yml/badge.svg)](https://github.com/kineticsystem/raw-converter/actions/workflows/ci.yml) |
