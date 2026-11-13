@@ -24,6 +24,7 @@ REPOSITORIES=(
     "The Libraries|BehaviorTree.ROS2|BehaviorTree.CPP for ROS 2, our fork, branch \`humble\`, for the commander."
     "Around the Rig|stepit-grader|A photo editor for the tones and colours of a picture."
     "Around the Rig|raw-converter|Converts the camera's raw files, e.g. Canon CR2, to DNG for Lightroom."
+    "Around the Rig|stepit-speech|Drives the rig by voice: spoken commands, read back and confirmed, sent through rosbridge."
     "Around the Rig|stepit-stacker|Focus stacking of the rig's sessions."
 )
 
