@@ -51,9 +51,13 @@ function badges() {
 }
 
 {
-    echo "# Global Status Report"
+    echo "I'm a senior software engineer specialising in integration and tooling: connecting hardware, ROS 2, simulation and user interfaces into systems that work. I have over 20 years of commercial experience, including B2B contracting, and more than a decade of C++ and Qt. I've been client-facing throughout, from on-site analysis to leading an offshore development team in Scrum."
     echo
-    echo "The CI status of the StepIt projects. A red badge is a failing workflow: click it to see why."
+    echo "# StepIt"
+    echo
+    echo "The repositories below are StepIt, where all of this comes together: a robotic rig for macro photography, from the firmware of its motors and flashes to ROS 2, behaviour trees and the user interfaces that drive it."
+    echo
+    echo "Each badge is the CI status of a repository. A red badge is a failing workflow: click it to see why."
     group=""
     for entry in "${REPOSITORIES[@]}"; do
         IFS='|' read -r this name role <<< "$entry"
