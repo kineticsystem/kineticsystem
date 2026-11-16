@@ -1,6 +1,10 @@
+## About Me
+
 I'm a senior software engineer specialising in integration and tooling: connecting hardware, ROS 2, simulation and user interfaces into systems that work.
 
 I have over 20 years of commercial experience, including B2B contracting, and more than a decade of C++ and Qt. I've been client-facing throughout, from on-site analysis to leading offshore development teams.
+
+I'm the creator of [Lentigram](https://www.framedlives.com/?page=lentigram), an application that interlaces a sequence of pictures for lenticular printing, used by more than 200 professionals worldwide.
 
 Following is a list of personal projects I'm actively working on.
 
