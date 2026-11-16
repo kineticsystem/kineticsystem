@@ -8,7 +8,7 @@ Following is a list of personal projects I'm actively working on.
 
 ### The Main Rig
 
-StepIt is a modular robotic rig for 3D macro photography. Each module lives in a repository of its own.
+StepIt is a modular robotic rig for 3D macro photography. Each module lives in a repository of its own. The modules are robot agnostic: each of them can be used in other robotic projects.
 
 The main repo, `stepit-macro`, puts the modules together in one container with the user interface that drives them.
 
