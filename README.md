@@ -2,6 +2,8 @@ I'm a senior software engineer specialising in integration and tooling: connecti
 
 I have over 20 years of commercial experience, including B2B contracting, and more than a decade of C++ and Qt. I've been client-facing throughout, from on-site analysis to leading offshore development teams.
 
+Following is a list of personal projects I'm actively working on.
+
 ## StepIt
 
 ### The Main Rig
