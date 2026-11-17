@@ -33,7 +33,7 @@ The main repo, `stepit-macro`, puts the modules together in one container with t
 | [stepit-stacker](https://github.com/kineticsystem/stepit-stacker) | Turns each StepIt Macro session into focus-stacked, graded 16-bit images, and renders them on a 3D display. |
 | [stepit-grader](https://github.com/kineticsystem/stepit-grader) | A photo editor for the tones and colours of a picture.<br>[![CI](https://github.com/kineticsystem/stepit-grader/actions/workflows/ci.yml/badge.svg)](https://github.com/kineticsystem/stepit-grader/actions/workflows/ci.yml) |
 | [raw-converter](https://github.com/kineticsystem/raw-converter) | Converts the camera's raw files, e.g. Canon CR2, to DNG for Lightroom.<br>[![Format](https://github.com/kineticsystem/raw-converter/actions/workflows/ci-format.yml/badge.svg)](https://github.com/kineticsystem/raw-converter/actions/workflows/ci-format.yml) [![CI](https://github.com/kineticsystem/raw-converter/actions/workflows/ci.yml/badge.svg)](https://github.com/kineticsystem/raw-converter/actions/workflows/ci.yml) |
-| [holo-pi](https://github.com/kineticsystem/holo-pi) | Shows the rig's 3D pictures as holograms on a Looking Glass Portrait, from a Raspberry Pi. |
+| [holo-pi](https://github.com/kineticsystem/holo-pi) | Shows the rig's 3D pictures and videos as holograms on a Looking Glass Portrait, from a Raspberry Pi, with a web page to upload and play them.<br>[![CI](https://github.com/kineticsystem/holo-pi/actions/workflows/ci.yml/badge.svg)](https://github.com/kineticsystem/holo-pi/actions/workflows/ci.yml) |
 
 ### Experimental
 
